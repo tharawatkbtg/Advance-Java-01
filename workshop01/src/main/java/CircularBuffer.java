@@ -2,38 +2,40 @@ import java.util.Arrays;
 
 public class CircularBuffer {
 
+    public static final int DEFAULT_SIZE = 10;
+    // Variables
     private String[] buffers;
+    private int writePointer;
+    private int readPointer;
 
-    // TODO
-    public void create(){// default size = 10
-        buffers = new String[10];
+    // Constructor
+    public CircularBuffer() {}
+
+    // Methods
+    // Public
+    public void create() {
+        create(DEFAULT_SIZE);
     }
 
     public void create(int size) {
         buffers = new String[size];
     }
-    public void write(String input){
 
+    public int getSize() {
+        return buffers.length;
     }
 
-    public String read(){
-        String result = "";
-        return result;
+    public boolean isEmpty() {
+        return writePointer - readPointer == 0;
     }
 
-    public int getSize(){
-        int result = 0;
-        result = buffers.length;
-        return result;
+    public void write(String input) {
+        buffers[writePointer++] = input;
     }
 
-    public boolean isEmpty(){
-        boolean result = false;
-        return result;
+    public String read() {
+        return buffers[readPointer];
     }
 
-    public boolean isFull(){
-        boolean result = false;
-        return result;
-    }
+    // Private
 }
