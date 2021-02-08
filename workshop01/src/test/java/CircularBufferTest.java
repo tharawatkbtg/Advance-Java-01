@@ -1,14 +1,16 @@
-import org.junit.Test;
+import circularexception.EmptyBufferException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class CircularBufferTest {
 
     CircularBuffer circularBuffer = new CircularBuffer();
-
+    String msgErr = "Buffer is empty";
     @Test
-    public void write_A_B_and_read_A_B_then_buffer_is_empty() {
+    public void write_A_B_and_read_A_B_then_buffer_is_empty() throws EmptyBufferException {
         circularBuffer.create();
         circularBuffer.write("A");
         circularBuffer.write("B");
@@ -18,7 +20,7 @@ public class CircularBufferTest {
     }
 
     @Test
-    public void write_A_B_should_read_A_B() {
+    public void write_A_B_should_read_A_B() throws EmptyBufferException {
         circularBuffer.create();
         circularBuffer.write("A");
         circularBuffer.write("B");
@@ -27,7 +29,7 @@ public class CircularBufferTest {
     }
 
     @Test
-    public void write_A_should_read_A() {
+    public void write_A_should_read_A() throws EmptyBufferException {
         circularBuffer.create();
         circularBuffer.write("A");
         String result = circularBuffer.read();
@@ -35,7 +37,7 @@ public class CircularBufferTest {
     }
 
     @Test
-    public void write_A_read_A_and_write_B_read_B() {
+    public void write_A_read_A_and_write_B_read_B() throws EmptyBufferException {
         circularBuffer.create();
         circularBuffer.write("A");
         String result_a = circularBuffer.read();
@@ -43,6 +45,27 @@ public class CircularBufferTest {
         String result_b = circularBuffer.read();
         assertEquals("A", result_a);
         assertEquals("B", result_b);
+    }
+
+//    @Test(expected = EmptyBufferException.class)
+//    public void read_overflow() throws EmptyBufferException {
+//        circularBuffer.create();
+//        try {
+//            String result = circularBuffer.read();
+//        }catch (Exception e){
+//            assertEquals(msgErr, circularException.getMessage());
+//        }
+//    }
+
+    @Test
+    public void read_overflowEmpty() throws EmptyBufferException {
+        circularBuffer.create();
+        Exception exception = assertThrows(EmptyBufferException.class,()->{
+            circularBuffer.read();
+        });
+        assertNotNull(exception);
+        assertEquals(msgErr, exception.getMessage());
+
     }
 
     @Test

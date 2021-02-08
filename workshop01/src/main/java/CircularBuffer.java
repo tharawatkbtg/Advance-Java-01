@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import circularexception.EmptyBufferException;
 
 public class CircularBuffer {
 
@@ -33,14 +33,11 @@ public class CircularBuffer {
         buffers[writePointer++] = input;
     }
 
-    public String read() {
-        int bufferReadPointer = readPointer;
-//        if (readPointer > 0){
-//            bufferReadPointer = readPointer;
-//            readPointer--;
-//        }
-        readPointer++;
-        return buffers[bufferReadPointer];
+    public String read() throws EmptyBufferException {
+        if (isEmpty()){
+            throw new EmptyBufferException();
+        }
+        return buffers[readPointer++];
     }
 
     // Private
