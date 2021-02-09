@@ -10,9 +10,9 @@ public class RegisterBusiness {
         Integer speakerId;
         String[] domains = {"gmail.com", "live.com"};
 
-        if (speaker.getFirstName() != null && !speaker.getFirstName().trim().equals("")) {
-            if (speaker.getLastName() != null && !speaker.getLastName().trim().equals("")) {
-                if (speaker.getEmail() != null && !speaker.getEmail().trim().equals("")) {
+        if (validateRegisterData(speaker.getFirstName())) {
+            if (validateRegisterData(speaker.getLastName())) {
+                if (validateRegisterData(speaker.getEmail())) {
                     // Tasks
                     String emailDomain = getEmailDomain(speaker.getEmail()); // ArrayIndexOutOfBound
                     if (Arrays.stream(domains).filter(it -> it.equals(emailDomain)).count() == 1) {
@@ -51,6 +51,14 @@ public class RegisterBusiness {
             fee = 50;
         }
         return fee;
+    }
+
+    boolean validateRegisterData(String data){
+        boolean check = false;
+        if (data != null && !data.trim().equals("")){
+            check = true;
+        }
+        return check;
     }
 
     public String getEmailDomain(String email) {

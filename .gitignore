@@ -102,3 +102,6 @@ workshop03/target/classes/badcode/SpeakerRepository.class
 workshop03/target/test-classes/badcode/RegisterBusinessTest$1.class
 workshop03/target/test-classes/badcode/RegisterBusinessTest.class
 workshop03/target/test-classes/badcode/RegisterBusinessTest$2.class
+workshop03/target/classes/badcode/DomainEmailInvalidException.class
+workshop03/target/test-classes/badcode/EmailDomainTest.class
+workshop03/target/test-classes/badcode/RegisterFeeTest.class
