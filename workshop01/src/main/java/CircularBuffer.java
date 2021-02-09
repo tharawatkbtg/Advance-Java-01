@@ -1,4 +1,5 @@
 import circularexception.EmptyBufferException;
+import circularexception.NullBufferException;
 
 public class CircularBuffer {
 
@@ -33,7 +34,10 @@ public class CircularBuffer {
         buffers[writePointer++] = input;
     }
 
-    public String read() throws EmptyBufferException {
+    public String read(){
+        if (isNullCircular()){
+            throw new NullBufferException();
+        }
         if (isEmpty()){
             throw new EmptyBufferException();
         }
@@ -41,4 +45,11 @@ public class CircularBuffer {
     }
 
     // Private
+    private boolean isNullCircular(){
+        if (buffers == null){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

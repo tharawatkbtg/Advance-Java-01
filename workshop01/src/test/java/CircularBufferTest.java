@@ -1,4 +1,5 @@
 import circularexception.EmptyBufferException;
+import circularexception.NullBufferException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,17 @@ public class CircularBufferTest {
 
     CircularBuffer circularBuffer = new CircularBuffer();
     String msgErr = "Buffer is empty";
+    String msgNull = "Buffer is not create";
+
+    @Test
+    public void read_without_create() {
+        Exception exception = assertThrows(NullBufferException.class,()->{
+            circularBuffer.read();
+        });
+        assertNotNull(exception);
+        assertEquals(msgNull, exception.getMessage());
+    }
+
     @Test
     public void write_A_B_and_read_A_B_then_buffer_is_empty() throws EmptyBufferException {
         circularBuffer.create();
@@ -47,16 +59,6 @@ public class CircularBufferTest {
         assertEquals("B", result_b);
     }
 
-//    @Test(expected = EmptyBufferException.class)
-//    public void read_overflow() throws EmptyBufferException {
-//        circularBuffer.create();
-//        try {
-//            String result = circularBuffer.read();
-//        }catch (Exception e){
-//            assertEquals(msgErr, circularException.getMessage());
-//        }
-//    }
-
     @Test
     public void read_overflowEmpty() throws EmptyBufferException {
         circularBuffer.create();
@@ -65,7 +67,6 @@ public class CircularBufferTest {
         });
         assertNotNull(exception);
         assertEquals(msgErr, exception.getMessage());
-
     }
 
     @Test
@@ -106,5 +107,4 @@ public class CircularBufferTest {
         // Validate/Checking/Assert
         assertEquals(10, size);
     }
-
 }
