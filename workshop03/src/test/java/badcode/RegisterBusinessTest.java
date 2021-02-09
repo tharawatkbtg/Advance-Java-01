@@ -121,4 +121,30 @@ public class RegisterBusinessTest {
         assertEquals(100, speakerId);
     }
 
+    @Test
+    public void register_valid_email() {
+        // Arrange
+        RegisterBusiness registerBusiness = new RegisterBusiness();
+        Speaker newSpeaker = new Speaker();
+        newSpeaker.setFirstName("Demo");
+        newSpeaker.setLastName("Demo last");
+        newSpeaker.setEmail("demogmail.com@");
+
+        // Stub dependency
+        SpeakerRepository stub = new SpeakerRepository() {
+            @Override
+            public Integer saveSpeaker(Speaker speaker) {
+                return new Integer(100);
+            }
+        };
+
+        // Act
+        Exception exception = assertThrows(ArgumentNullException.class, () -> {
+            registerBusiness.register(null, newSpeaker);
+        });
+
+        // Assert
+        assertEquals("invalid Email", exception.getMessage());
+    }
+
 }
