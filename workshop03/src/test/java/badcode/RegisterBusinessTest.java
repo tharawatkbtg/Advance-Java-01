@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class RegisterBusinessTest {
 
     //=============== Failure cases
@@ -95,7 +99,6 @@ public class RegisterBusinessTest {
     }
 
     //=============== Success cases
-
     @Test
     public void register_success() {
         // Arrange
@@ -119,32 +122,6 @@ public class RegisterBusinessTest {
         // Assert
         assertNotNull(speakerId);
         assertEquals(100, speakerId);
-    }
-
-    @Test
-    public void register_valid_email() {
-        // Arrange
-        RegisterBusiness registerBusiness = new RegisterBusiness();
-        Speaker newSpeaker = new Speaker();
-        newSpeaker.setFirstName("Demo");
-        newSpeaker.setLastName("Demo last");
-        newSpeaker.setEmail("demogmail.com@");
-
-        // Stub dependency
-        SpeakerRepository stub = new SpeakerRepository() {
-            @Override
-            public Integer saveSpeaker(Speaker speaker) {
-                return new Integer(100);
-            }
-        };
-
-        // Act
-        Exception exception = assertThrows(ArgumentNullException.class, () -> {
-            registerBusiness.register(null, newSpeaker);
-        });
-
-        // Assert
-        assertEquals("invalid Email", exception.getMessage());
     }
 
 }
